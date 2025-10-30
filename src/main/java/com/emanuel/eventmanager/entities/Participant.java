@@ -11,8 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Participant implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	
+
 	@Id
 	private String id;
 	private String firstName;
@@ -100,9 +99,5 @@ public class Participant implements Serializable {
 		return "Participant [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", phone=" + phone + ", events=" + events + "]";
 	}
-	
-	
-	
-	
 
 }
