@@ -58,7 +58,7 @@ public class EventResource {
 
 	@PostMapping("/{eventId}/participants")
 	public ResponseEntity<Void> addParticipant(@PathVariable String eventId, @RequestBody ParticipantDTO participant) {
-	    service.addParticipant(eventId, participant.getId());
+	    service.addParticipant(eventId, participant);
 	    URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 	            .build()
 	            .toUri();

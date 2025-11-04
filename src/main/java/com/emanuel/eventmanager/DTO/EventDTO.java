@@ -32,6 +32,8 @@ public class EventDTO implements Serializable{
 		startDate = obj.getStartDate();
 		endDate = obj.getEndDate();
 		maxParticipants = obj.getMaxParticipants();
+		this.participantsId = obj.getParticipantsId();
+
 	}
 
 	public String getId() {

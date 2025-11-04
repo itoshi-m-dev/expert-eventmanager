@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.emanuel.eventmanager.DTO.EventDTO;
 
-@Document
+@Document(collection = "event")
 public class Event implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -25,7 +25,6 @@ public class Event implements Serializable {
 	private Date endDate;
 	private Integer maxParticipants;
 	
-	@DBRef(lazy = true)
 	private List<String> participantsId = new ArrayList<>();
 
 	public Event() {

@@ -1,13 +1,17 @@
 package com.emanuel.eventmanager.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.emanuel.eventmanager.DTO.ParticipantDTO;
 import com.emanuel.eventmanager.entities.Event;
+import com.emanuel.eventmanager.entities.Participant;
 import com.emanuel.eventmanager.repositories.EventRepository;
+import com.emanuel.eventmanager.repositories.ParticipantRepository;
 import com.emanuel.eventmanager.services.exceptions.ObjectNotFound;
 
 @Service
@@ -15,6 +19,9 @@ public class EventService {
 	
 	@Autowired
 	public EventRepository repo;
+	
+	@Autowired
+	public ParticipantRepository participantRepo;
 	
 	
 	public Event createEvent(Event event) {
@@ -43,11 +50,30 @@ public class EventService {
 		repo.delete(obj);
 	}
 	
-	public void addParticipant(String eventId, String ParticipantId) {
-		Event obj = findById(eventId);
-		obj.getParticipantsId().add(ParticipantId);
-		
+	public void addParticipant(String eventId, ParticipantDTO dto) {
+	    Event event = findById(eventId);
+
+	    // Cria o participante
+	    Participant participant = new Participant(
+	        null,
+	        dto.getFirstName(),
+	        dto.getLastName(),
+	        dto.getEmail(),
+	        dto.getPhone(),
+	        new ArrayList<>()
+	    );
+
+	    participant = participantRepo.save(participant);
+
+	    // Associa o evento a ele
+	    participant.getEvents().add(eventId);
+	    participantRepo.save(participant);
+
+	    // Adiciona o participante ao evento
+	    event.getParticipantsId().add(participant.getId());
+	    repo.save(event);
 	}
+
 
 	private void updateData(Event obj, Event event) {
 		obj.setName(event.getName());;
