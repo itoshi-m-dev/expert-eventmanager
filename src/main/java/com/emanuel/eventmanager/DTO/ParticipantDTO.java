@@ -71,8 +71,8 @@ public class ParticipantDTO implements Serializable{
 		return events;
 	}
 
-	public void setEvents(List<String> events) {
-		this.events = events;
+	public Participant fromDTO(ParticipantDTO obj) {
+		return new Participant(obj.getId(), obj.getFirstName(), obj.getLastName(), obj.getEmail(), obj.getPhone(), obj.getEvents());
 	}
 	
 	

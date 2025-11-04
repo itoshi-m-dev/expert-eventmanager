@@ -93,6 +93,11 @@ public class EventDTO implements Serializable{
 	public List<String> getParticipantsId() {
 		return participantsId;
 	}
+	
+	public Event fromDTO(EventDTO event) {
+		return new Event(event.getId(), event.getName(), event.getDescription(), event.getLocation(), event.getStartDate(),
+				event.getEndDate(), event.getMaxParticipants(), event.getParticipantsId());
+	}
 
 	
 	

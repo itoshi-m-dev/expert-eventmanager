@@ -7,7 +7,10 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.emanuel.eventmanager.DTO.EventDTO;
 
 @Document
 public class Event implements Serializable {
@@ -21,7 +24,8 @@ public class Event implements Serializable {
 	private Date startDate;
 	private Date endDate;
 	private Integer maxParticipants;
-
+	
+	@DBRef(lazy = true)
 	private List<String> participantsId = new ArrayList<>();
 
 	public Event() {
