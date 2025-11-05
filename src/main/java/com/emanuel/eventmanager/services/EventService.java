@@ -53,17 +53,12 @@ public class EventService {
 	public void addParticipant(String eventId, ParticipantDTO dto) {
 	    Event event = findById(eventId);
 
-	    // Cria o participante
-	    Participant participant = new Participant(
-	        null,
-	        dto.getFirstName(),
-	        dto.getLastName(),
-	        dto.getEmail(),
-	        dto.getPhone(),
-	        new ArrayList<>()
-	    );
-
-	    participant = participantRepo.save(participant);
+	    
+	    Participant participant = participantRepo.findById(dto.getId())
+	    		.orElseGet(() -> new Participant(null, dto.getFirstName(), dto.getLastName(), dto.getEmail(),
+	    				dto.getPhone(), new ArrayList<>()));
+	    
+	    		participant = participantRepo.save(participant);
 
 	    // Associa o evento a ele
 	    participant.getEvents().add(eventId);

@@ -25,6 +25,7 @@ public class ParticipantDTO implements Serializable{
 		lastName = obj.getLastName();
 		email = obj.getEmail();
 		phone = obj.getPhone();
+		this.events = obj.getEvents();
 	}
 
 	public String getId() {
