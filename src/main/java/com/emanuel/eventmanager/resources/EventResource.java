@@ -40,6 +40,17 @@ public class EventResource {
 		Event obj = service.findById(id);
 		return ResponseEntity.ok().body(new EventDTO(obj));
 	}
+	
+	@GetMapping(value = "/{eventId}/participants")
+	public ResponseEntity<List<String>> listAllParticipantsInEvent(@PathVariable String eventId){
+		Event obj = service.findById(eventId);
+		List<String> participants = obj.getParticipantsId();
+		if (participants.isEmpty()) {
+			return null;
+		}
+		return ResponseEntity.ok().body(participants);
+		
+	}
 
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Void> updateEvent(@PathVariable String id, @RequestBody EventDTO event) {
@@ -56,7 +67,7 @@ public class EventResource {
 		return ResponseEntity.noContent().build();
 	}
 
-	@PostMapping("/{eventId}/participants")
+	@PostMapping("/{eventId}/register")
 	public ResponseEntity<Void> addParticipant(@PathVariable String eventId, @RequestBody ParticipantDTO participant) {
 	    service.addParticipant(eventId, participant);
 	    URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
